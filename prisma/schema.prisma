@@ -1,6 +1,6 @@
-
 datasource db {
   provider = "sqlite"
+  // url      = env("DATABASE_URL")
   url      = "file:./dev.db"
 }
 
@@ -8,10 +8,55 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Role {
+  USER
+  ADMIN
+  SUPERADMIN
+  MANAGER
+  DEV
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  username  String    @unique
+  firstName String
+  lastName  String
+  password  String
+  role      Role      @default(USER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Product   Product[]
+}
 
 model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  units       String
+  creatorId   Int
+  creator     User      @relation(fields: [creatorId], references: [id])
+  inventory   Float     @default(0)
+  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime  @default(now())
+  Category    Category? @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  stoke       stoke[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model stoke {
   id        Int      @id @default(autoincrement())
-  name      String
-  price     Float
+  detail    String
+  quantity  Float
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
 }
