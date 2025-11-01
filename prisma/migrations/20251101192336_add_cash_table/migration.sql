@@ -1,0 +1,7 @@
+-- CreateTable
+CREATE TABLE "cash" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "detail" TEXT NOT NULL,
+    "amount" REAL NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

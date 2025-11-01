@@ -60,3 +60,10 @@ model stoke {
   product   Product  @relation(fields: [productId], references: [id])
   createdAt DateTime @default(now())
 }
+
+model cash {
+  id        Int      @id @default(autoincrement())
+  detail    String
+  amount    Float
+  createdAt DateTime @default(now())
+}
