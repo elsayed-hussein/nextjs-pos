@@ -1,9 +1,15 @@
 import React from "react";
+import UserNav from "@/components/ui/userNav";
 
 type Props = {};
 
-const topNav = (props: Props) => {
-  return <div>أسم البرنامج</div>;
+const TopNav = (props: Props) => {
+  return (
+    <div>
+      <UserNav />
+      <div>أسم البرنامج</div>
+    </div>
+  );
 };
 
-export default topNav;
+export default TopNav;
